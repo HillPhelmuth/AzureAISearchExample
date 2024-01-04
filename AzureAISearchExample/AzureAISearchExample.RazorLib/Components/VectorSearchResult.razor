@@ -1,0 +1,16 @@
+﻿<RadzenDataGrid Data="SearchResults" TItem="MemoryQueryResult" AllowFiltering=true AllowSorting=true AllowPaging=true PageSize="5" Density="Density.Compact" ShowPagingSummary=true>
+    <Columns>
+        <RadzenDataGridColumn TItem="MemoryQueryResult" Property="Metadata.Id" Title="Id" Width="10%" />
+        <RadzenDataGridColumn TItem="MemoryQueryResult" Property="@nameof(MemoryQueryResult.Relevance)" Title="Score" Width="20%">
+            <Template Context="searchResult">
+                @searchResult.Relevance.ToString("P2")
+            </Template>
+        </RadzenDataGridColumn>
+        <RadzenDataGridColumn TItem="MemoryQueryResult" Property="Metadata.Description" Title="Title" Width="60%" />
+        <RadzenDataGridColumn TItem="MemoryQueryResult" Property="Text" Title="View Text" Width="10%">
+            <Template Context="searchResult">
+                <RadzenButton Click="@(() => HandleViewText(searchResult.Metadata.Text))" Text="View Text" Size="ButtonSize.ExtraSmall"></RadzenButton>
+            </Template>
+        </RadzenDataGridColumn>
+    </Columns>
+</RadzenDataGrid>

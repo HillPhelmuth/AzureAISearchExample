@@ -1,0 +1,46 @@
+﻿@using Azure.Search.Documents.Models
+@using AzureAISearchExample.CoreLib
+<RadzenRow>
+    <RadzenColumn>
+        <RadzenTabs>
+            <Tabs>
+                <RadzenTabsItem Text="Vector Results">
+                    <RadzenDataGrid Data="_searchResults" TItem="SearchResult<IndexModel>" AllowFiltering=true AllowSorting=true AllowPaging=true PageSize="5" Density="Density.Compact" ShowPagingSummary=true>
+                        <Columns>
+                            <RadzenDataGridColumn TItem="SearchResult<IndexModel>" Property="Document.Id" Title="Id" Width="10%" />
+                            <RadzenDataGridColumn TItem="SearchResult<IndexModel>" Property="@nameof(SearchResult<IndexModel>.Score)" Title="Score" Width="20%">
+                                <Template Context="searchResult">
+                                    @searchResult.Score?.ToString("P2")
+                                </Template>
+                            </RadzenDataGridColumn>
+                            <RadzenDataGridColumn TItem="SearchResult<IndexModel>" Property="Document.Description" Title="Title" Width="60%" />
+                            <RadzenDataGridColumn TItem="SearchResult<IndexModel>" Property="Text" Title="View Text" Width="10%">
+                                <Template Context="searchResult">
+                                    <RadzenButton Click="@(() => HandleViewText(searchResult.Document.Text))" Text="View Text" Size="ButtonSize.ExtraSmall"></RadzenButton>
+                                </Template>
+                            </RadzenDataGridColumn>
+                        </Columns>
+                    </RadzenDataGrid>
+                </RadzenTabsItem>
+                <RadzenTabsItem Text="Semanic Results">
+                    <RadzenDataGrid Data="_semanticSearchResults" TItem="QueryAnswerResult" AllowFiltering=true AllowSorting=true AllowPaging=true PageSize="5" Density="Density.Compact" ShowPagingSummary=true>
+                        <Columns>
+                            <RadzenDataGridColumn TItem="QueryAnswerResult" Property="@nameof(QueryAnswerResult.Key)" Title="Key"></RadzenDataGridColumn>
+                            <RadzenDataGridColumn TItem="QueryAnswerResult" Property="@nameof(QueryAnswerResult.Score)" Title="Score"></RadzenDataGridColumn>
+                            <RadzenDataGridColumn TItem="QueryAnswerResult" Property="@nameof(QueryAnswerResult.Text)" Title="View Text">
+                                <Template Context="queryAnswerResult">
+                                    <RadzenButton Click="@(() => HandleViewText(queryAnswerResult.Text))" Text="View Text" Size="ButtonSize.ExtraSmall"></RadzenButton>
+                                </Template>
+                            </RadzenDataGridColumn>
+                            <RadzenDataGridColumn TItem="QueryAnswerResult" Property="@nameof(QueryAnswerResult.Highlights)" Title="View Highlights">
+                                <Template Context="queryAnswerResult">
+                                    <RadzenButton Click="@(() => HandleViewText(queryAnswerResult.Highlights))" Text="View Text" Size="ButtonSize.ExtraSmall"></RadzenButton>
+                                </Template>
+                            </RadzenDataGridColumn>
+                        </Columns>
+                    </RadzenDataGrid>
+                </RadzenTabsItem>
+            </Tabs>
+        </RadzenTabs>
+    </RadzenColumn>
+</RadzenRow>

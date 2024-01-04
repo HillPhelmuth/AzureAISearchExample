@@ -1,0 +1,31 @@
+﻿@page "/examples"
+<RadzenLink Path="" Text="Home"></RadzenLink>
+<RadzenRow>
+
+    <RadzenColumn Size="12">
+        <RadzenCard Style="height:60vh; overflow:auto">
+            @foreach (var chat in ChatService.ChatHistory)
+            {
+                <RadzenCard>
+                    <RadzenText TextStyle="TextStyle.Caption">
+                        @chat.Role
+                    </RadzenText>
+                    <RadzenText>
+                        @((MarkupString)MarkdownToHtml(chat.Content))
+                    </RadzenText>
+                </RadzenCard>
+            }
+        </RadzenCard>
+    </RadzenColumn>
+    <RadzenColumn Size="12">
+        <RadzenCard Style="width:100%">
+            <RadzenTemplateForm Data="_chatInput" TItem="ChatInputForm" Submit="SubmitChat">
+                <RadzenFormField Style="width:80%" Text="Chat Input">
+                    <RadzenTextBox Style="width:80%;height:4rem;" @bind-Value=_chatInput.Input></RadzenTextBox>
+                </RadzenFormField>
+                <RadzenCheckBox @bind-Value=_chatInput.UseHybrid /> Use Hybrid Search
+                <RadzenButton ButtonType="ButtonType.Submit" Text="Chat"></RadzenButton>
+            </RadzenTemplateForm>
+        </RadzenCard>
+    </RadzenColumn>
+</RadzenRow>

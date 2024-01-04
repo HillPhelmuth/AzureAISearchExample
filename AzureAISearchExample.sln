@@ -1,0 +1,48 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.8.34322.80
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AzureAISearchExample", "AzureAISearchExample\AzureAISearchExample\AzureAISearchExample.csproj", "{7E38345B-1E76-4314-A0CF-E7FB9BDDB1DA}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AzureAISearchExample.RazorLib", "AzureAISearchExample\AzureAISearchExample.RazorLib\AzureAISearchExample.RazorLib.csproj", "{EFE9E543-1976-4CE7-9881-A5B808854C3E}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AzureAISearchExample.CoreLib", "AzureAISearchExample.CoreLib\AzureAISearchExample.CoreLib.csproj", "{CFFA849D-FB71-41AA-B96D-3E3C1CF65751}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{2CB27D79-1C24-4CEA-BB58-4258DC75B592}"
+	ProjectSection(SolutionItems) = preProject
+		nuget.config = nuget.config
+	EndProjectSection
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CoreLibrary", "CoreLibrary\CoreLibrary.csproj", "{D68F2405-6189-4FF6-8D21-BD8F1FB3D7F2}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{7E38345B-1E76-4314-A0CF-E7FB9BDDB1DA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7E38345B-1E76-4314-A0CF-E7FB9BDDB1DA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7E38345B-1E76-4314-A0CF-E7FB9BDDB1DA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7E38345B-1E76-4314-A0CF-E7FB9BDDB1DA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EFE9E543-1976-4CE7-9881-A5B808854C3E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EFE9E543-1976-4CE7-9881-A5B808854C3E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EFE9E543-1976-4CE7-9881-A5B808854C3E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EFE9E543-1976-4CE7-9881-A5B808854C3E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CFFA849D-FB71-41AA-B96D-3E3C1CF65751}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CFFA849D-FB71-41AA-B96D-3E3C1CF65751}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CFFA849D-FB71-41AA-B96D-3E3C1CF65751}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CFFA849D-FB71-41AA-B96D-3E3C1CF65751}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D68F2405-6189-4FF6-8D21-BD8F1FB3D7F2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D68F2405-6189-4FF6-8D21-BD8F1FB3D7F2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D68F2405-6189-4FF6-8D21-BD8F1FB3D7F2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D68F2405-6189-4FF6-8D21-BD8F1FB3D7F2}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {2C9C705E-3726-48C9-A15F-D66EF3769199}
+	EndGlobalSection
+EndGlobal

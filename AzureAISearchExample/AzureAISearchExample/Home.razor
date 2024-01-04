@@ -1,0 +1,134 @@
+﻿@page "/"
+<RadzenLink Path="examples" Text="Examples Page"></RadzenLink>
+<RadzenRow>
+    <RadzenColumn>
+        <RadzenTabs Style="height:60vh">
+            <Tabs>
+                <RadzenTabsItem Text="Vectorize and Index">
+                    <RadzenRow>
+                        <RadzenColumn Size="8">
+                            <RadzenButton Text="Save All" IsBusy=_isBusy BusyText="Saving to AI Search..." Click="SaveAll" Size="ButtonSize.Small"></RadzenButton>
+                            <RadzenDataGrid Data="_memoryItems" TItem="MemoryItem" AllowFiltering=true AllowSorting=true AllowPaging=true PageSize="10" Density="Density.Compact" ShowPagingSummary=true>
+                                <Columns>
+                                    <RadzenDataGridColumn TItem="MemoryItem" Property="Id" Title="Id" Width="15%" />
+                                    <RadzenDataGridColumn TItem="MemoryItem" Property="Title" Title="Title" Width="70%" />
+                                    <RadzenDataGridColumn TItem="MemoryItem" Property="Text" Title="View Text" Width="15%">
+                                        <Template Context="memoryItem">
+                                            <RadzenButton Click="@(() => HandleViewText(memoryItem.Text))" Text="View Text" Size="ButtonSize.ExtraSmall"></RadzenButton>
+                                        </Template>
+                                    </RadzenDataGridColumn>
+                                </Columns>
+                            </RadzenDataGrid>
+                        </RadzenColumn>
+                        <RadzenColumn Size="4">
+                            <RadzenCard>
+                                <RadzenText>
+                                    @_viewText
+                                </RadzenText>
+                            </RadzenCard>
+                        </RadzenColumn>
+                    </RadzenRow>
+                </RadzenTabsItem>
+                <RadzenTabsItem Text="Simple Search">
+                    <RadzenRow>
+                        <RadzenColumn Size="8">
+                            <RadzenCard>
+
+                                <RadzenTemplateForm Data="_searchForm" TItem="SearchForm" Submit="Search">
+                                    <RadzenFormField Text="Search">
+                                        <RadzenTextBox @bind-Value="_searchForm.SearchText" Placeholder="Search Text"></RadzenTextBox>
+                                    </RadzenFormField>
+                                    <RadzenFormField Text="Results">
+                                        <RadzenNumeric @bind-Value="_searchForm.MaxResults" Step="1" Min="1" Max="50"></RadzenNumeric>
+                                    </RadzenFormField>
+                                    <RadzenFormField Text="Threshold">
+                                        <RadzenNumeric TValue="double" @bind-Value="_searchForm.MinThreshold" Step="0.01" Min=".10m" Max="0.99m"></RadzenNumeric>
+                                    </RadzenFormField><br />
+                                    <RadzenButton Text="Search" IsBusy=_isBusy BusyText="Searching..." ButtonType="ButtonType.Submit" Size="ButtonSize.Small"></RadzenButton>
+                                </RadzenTemplateForm>
+                            </RadzenCard>
+                            <VectorSearchResult SearchResults="_searchResults" @bind-ViewText=_viewText></VectorSearchResult>
+                        </RadzenColumn>
+                        <RadzenColumn Size="4">
+                            <RadzenCard Style="max-height:30vh; overflow:auto">
+                                <RadzenText TextStyle="TextStyle.Body2" Style="font-size:95%">
+                                    @((MarkupString)_viewText)
+                                </RadzenText>
+                            </RadzenCard>
+                        </RadzenColumn>
+                    </RadzenRow>
+                </RadzenTabsItem>
+                <RadzenTabsItem Text="Hybrid Search">
+                    <RadzenRow>
+                        <RadzenColumn Size="12">
+                            <RadzenCard>
+
+                                <RadzenTemplateForm Data="_searchForm" TItem="SearchForm" Submit="Search">
+                                    <RadzenFormField Text="Search">
+                                        <RadzenTextBox @bind-Value="_searchForm.SearchText" Placeholder="Search Text"></RadzenTextBox>
+                                    </RadzenFormField>
+                                    <RadzenFormField Text="Results">
+                                        <RadzenNumeric @bind-Value="_searchForm.MaxResults" Step="1" Min="1" Max="50"></RadzenNumeric>
+                                    </RadzenFormField>
+                                    <RadzenFormField Text="Threshold">
+                                        <RadzenNumeric TValue="double" @bind-Value="_searchForm.MinThreshold" Step="0.01" Min=".10m" Max="0.99m"></RadzenNumeric>
+                                    </RadzenFormField>
+                                    <br />
+                                    <RadzenButton Text="Search" IsBusy=_isBusy BusyText="Searching..." ButtonType="ButtonType.Submit" Size="ButtonSize.Small"></RadzenButton>
+                                </RadzenTemplateForm>
+                            </RadzenCard>
+                            <RadzenRow>
+                                <RadzenColumn Size="6">
+                                    <RadzenText Text="Hybrid" TextStyle="TextStyle.Subtitle1" TextAlign="TextAlign.Center"></RadzenText>
+                                    <HybridResultGrid HybridResult="_hybridResult" @bind-ViewText=_viewText></HybridResultGrid>
+                                </RadzenColumn>
+                                <RadzenColumn Size="6">
+                                    <RadzenText Text="Standard" TextStyle="TextStyle.Subtitle1" TextAlign="TextAlign.Center"></RadzenText>
+                                    <VectorSearchResult SearchResults="_searchResults" @bind-ViewText=_viewText></VectorSearchResult>
+                                </RadzenColumn>
+                            </RadzenRow>
+                        </RadzenColumn>
+                        <RadzenColumn Size="6" Offset="3">
+                            <RadzenCard Style="max-height:30vh; overflow:auto">
+                                <RadzenText TextStyle="TextStyle.Body2" Style="font-size:95%">
+                                    @((MarkupString)_viewText)
+                                </RadzenText>
+                            </RadzenCard>
+                        </RadzenColumn>
+                    </RadzenRow>
+                </RadzenTabsItem>
+                <RadzenTabsItem Text="Add and junk documents">
+                    <RadzenRow>
+                        <RadzenColumn>
+                            <RadzenButton Size="ButtonSize.Large" Click="HandleFileSelection" Text="Select Files to Process"></RadzenButton>
+                            <RadzenCard>
+                                @if (_fileUploadForm.Files.Count > 0)
+                                {
+                                    <RadzenText TextStyle="TextStyle.DisplayH6" TextAlign="TextAlign.Center" Text="Files Selected"></RadzenText>
+                                    @foreach (var file in _fileUploadForm.Files)
+                                    {
+                                        <RadzenText>@file.FileName</RadzenText>
+
+                                        <br />
+                                    }
+                                }
+                            </RadzenCard>
+                            <RadzenButton Text="Process File" IsBusy=_isBusy BusyText="Processing..." Click="ProcessFiles"></RadzenButton>
+                        </RadzenColumn>
+                    </RadzenRow>
+
+                </RadzenTabsItem>
+            </Tabs>
+        </RadzenTabs>
+    </RadzenColumn>
+</RadzenRow>
+<RadzenRow>
+    <RadzenColumn>
+        <RadzenCard Style="font-size:85%; color:white;background-color:black; height:30vh;width:97%;overflow:auto;position:absolute;bottom:0">
+            @foreach (var item in _logList)
+            {
+                @item <br />
+            }
+        </RadzenCard>
+    </RadzenColumn>
+</RadzenRow>
